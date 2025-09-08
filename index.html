@@ -225,7 +225,7 @@
 
 .about-content {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* zabrání obrázku padnout pod text */
     gap: 30px;
     align-items: flex-start;
     justify-content: center;
@@ -235,7 +235,6 @@
 
 .about-text {
     flex: 1 1 60%;
-    min-width: 280px;
     font-size: 1.1rem;
     line-height: 1.8;
 }
@@ -255,24 +254,16 @@
 }
 
 /* Responzivita */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .about-content {
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap; /* až při užším zobrazení se obrázek přesune pod text */
     }
 
-    .about-image {
-        flex: 0 0 auto;
-    }
-
-    .about-text {
+    .about-text, .about-image {
         flex: 1 1 100%;
         text-align: center;
     }
-}
 
-
-}
 
 
 }
