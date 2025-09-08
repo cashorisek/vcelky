@@ -222,11 +222,11 @@
             background: var(--light-bg);
         }
 
-       .about-content {
+     .about-content {
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
     align-items: flex-start;
-    flex-wrap: wrap;
     justify-content: center;
     max-width: 1000px;
     margin: 0 auto;
@@ -243,6 +243,17 @@
     flex: 1 1 35%;
     display: flex;
     justify-content: center;
+}
+
+.about-img {
+    width: 100%;
+    max-width: 300px;   /* pevná maximální šířka */
+    height: auto;       /* zachová proporce */
+    object-fit: cover;  /* obrázek se přizpůsobí rámečku */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
 }
 
 
