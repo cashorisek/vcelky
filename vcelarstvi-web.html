@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Včelařství Novák</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FFA500;
+            --honey-color: #FFB347;
+            --light-honey: #FFD700;
+            --dark-text: #333;
+            --light-bg: #FFF9F0;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            overflow-x: hidden;
+        }
+
+        /* Navigace */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🐝";
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-text);
+        }
+
+        /* Hero sekce */
+        #home {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            background: linear-gradient(135deg, rgba(255,183,71,0.1) 0%, rgba(255,215,0,0.1) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            color: var(--dark-text);
+            max-width: 600px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: backwards;
+            box-shadow: 0 4px 15px rgba(255,165,0,0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255,165,0,0.4);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="honeycomb" x="0" y="0" width="40" height="46" patternUnits="userSpaceOnUse"><polygon points="20,0 40,11.5 40,34.5 20,46 0,34.5 0,11.5" fill="none" stroke="%23FFB347" stroke-width="1" opacity="0.3"/></pattern></defs><rect width="200" height="200" fill="url(%23honeycomb)"/><text x="100" y="100" font-family="Arial" font-size="60" text-anchor="middle" fill="%23FFB347">🍯</text></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-50%) rotate(0deg); }
+            50% { transform: translateY(-45%) rotate(5deg); }
+        }
+
+        /* Sekce */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--dark-text);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        /* O nás */
+        #about {
+            background: var(--light-bg);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--honey-color), var(--light-honey));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Produkty */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            color: var(--dark-text);
+            margin-bottom: 1rem;
+        }
+
+        .product-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Kontakt */
+        #contact {
+            background: var(--light-bg);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item span {
+            font-size: 1.5rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,165,0,0.3);
+        }
+
+        /* Patička */
+        footer {
+            background: var(--dark-text);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responzivita */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Animace včeliček */
+        .bee {
+            position: fixed;
+            font-size: 1.5rem;
+            z-index: 10;
+            pointer-events: none;
+            animation: fly 15s infinite linear;
+        }
+
+        @keyframes fly {
+            0% {
+                left: -50px;
+                top: 20%;
+                transform: rotate(0deg);
+            }
+            25% {
+                left: 25%;
+                top: 80%;
+                transform: rotate(45deg);
+            }
+            50% {
+                left: 50%;
+                top: 10%;
+                transform: rotate(-30deg);
+            }
+            75% {
+                left: 75%;
+                top: 60%;
+                transform: rotate(20deg);
+            }
+            100% {
+                left: calc(100% + 50px);
+                top: 30%;
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Létající včelky -->
+    <div class="bee" style="animation-delay: 0s;">🐝</div>
+    <div class="bee" style="animation-delay: 5s;">🐝</div>
+    <div class="bee" style="animation-delay: 10s;">🐝</div>
+
+    <!-- Navigace -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">Včelařství Novák</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Domů</a></li>
+                <li><a href="#about">O nás</a></li>
+                <li><a href="#products">Produkty</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero sekce -->
+    <section id="home">
+        <div class="hero-content">
+            <h1>Včelařství Novák</h1>
+            <p class="hero-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Naše rodinné včelařství 
+                se již třetí generaci věnuje chovu včel a výrobě kvalitních včelích produktů. 
+                S láskou a péčí se staráme o naše včelky v srdci české přírody.
+            </p>
+            <a href="#products" class="cta-button">Naše produkty</a>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- O nás -->
+    <section id="about">
+        <h2>O nás</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    Jmenuji se Jan Novák a včelařství je mojí celoživotní vášní. Lorem ipsum dolor sit amet, 
+                    consectetur adipiscing elit. Již více než 40 let se věnuji chovu včel v malebné krajině 
+                    Českomoravské vysočiny.
+                </p>
+                <br>
+                <p>
+                    Naše včelstva jsou umístěna v ekologicky čistých oblastech, daleko od průmyslových 
+                    znečištění. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Díky tomu můžeme 
+                    garantovat nejvyšší kvalitu našich produktů.
+                </p>
+                <br>
+                <p>
+                    Věříme v tradiční postupy a respekt k přírodě. Každý produkt, který nabízíme, 
+                    je výsledkem pečlivé práce a lásky k včelám.
+                </p>
+            </div>
+            <div class="about-image">
+                👴🐝
+            </div>
+        </div>
+    </section>
+
+    <!-- Produkty -->
+    <section id="products">
+        <h2>Naše produkty</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon">🍯</div>
+                <h3>Med</h3>
+                <p>
+                    Nabízíme různé druhy medu - květový, lipový, lesní a akátový. 
+                    Každý med je pečlivě stáčen a kontrolován, aby si zachoval 
+                    všechny své přírodní vlastnosti a výjimečnou chuť.
+                </p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🕯️</div>
+                <h3>Včelí vosk</h3>
+                <p>
+                    Čistý včelí vosk vhodný pro výrobu svíček, kosmetiky nebo 
+                    jako přírodní konzervant. Náš vosk pochází výhradně z našich 
+                    včelstev a je zpracován tradičními metodami.
+                </p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">💊</div>
+                <h3>Propolis</h3>
+                <p>
+                    Včelí propolis známý pro své antibakteriální a léčivé účinky. 
+                    Nabízíme propolisovou tinkturu i surový propolis. Ideální 
+                    pro podporu imunity a celkového zdraví.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="contact">
+        <h2>Kontaktujte nás</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>👤</span>
+                    <div>Jan Novák</div>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <div>Včelařská 123, 58601 Jihlava</div>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <div>+420 123 456 789</div>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <div>info@vcelarstvi-novak.cz</div>
+                </div>
+            </div>
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label for="name">Jméno</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Zpráva</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Odeslat zprávu</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Patička -->
+    <footer>
+        <p>&copy; 2024 Včelařství Novák. Všechna práva vyhrazena. | Vytvořeno s 🐝 a láskou</p>
+    </footer>
+
+    <script>
+        // Mobilní menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Zavřít mobilní menu po kliknutí
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.textContent = '☰';
+                }
+            });
+        });
+
+        // Animace při scrollování
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Pozorovat všechny product cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Změna velikosti headeru při scrollování
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Formulář - pouze pro demonstraci
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            // Pro GitHub Pages použijte Formspree nebo podobnou službu
+            // Nahraďte YOUR_FORM_ID skutečným ID z Formspree
+            if (contactForm.action.includes('YOUR_FORM_ID')) {
+                e.preventDefault();
+                alert('Pro funkční formulář je potřeba nastavit Formspree nebo podobnou službu. Navštivte https://formspree.io a vytvořte si formulář zdarma.');
+            }
+        });
+
+        // Easter egg - kliknutí na včelku
+        document.querySelectorAll('.bee').forEach(bee => {
+            bee.style.cursor = 'pointer';
+            bee.style.pointerEvents = 'auto';
+            bee.addEventListener('click', () => {
+                bee.textContent = '🍯';
+                setTimeout(() => {
+                    bee.textContent = '🐝';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
