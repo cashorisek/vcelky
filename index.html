@@ -258,18 +258,20 @@
 /* Responzivita */
 @media (max-width: 768px) {
     .about-content {
-        flex-direction: column;
+        flex-direction: column; /* obrázek pod text na mobilu */
         align-items: center;
-    }
-
-    .about-image {
-        flex: 0 0 auto;
     }
 
     .about-text {
         flex: 1 1 100%;
         text-align: center;
     }
+
+    .about-image {
+        flex: 0 0 auto;
+    }
+}
+
 }
 
 
@@ -517,27 +519,18 @@
 
     <!-- O nás -->
     <section id="about">
-        <h2>O nás</h2>
-       <div class="about-content">
-    <div class="about-text">
-        <p>
-            Jmenuji se Jan Novák a včelařství je mou vášní. Naše rodinné včelařství se zaměřuje na výrobu kvalitního medu, vosku a propolisu přímo z české přírody.
-        </p>
-        <p>
-            Dbáme na tradiční postupy a péči o včely, aby každý produkt měl tu nejvyšší kvalitu. Přesvědčte se sami o naší práci a lásce k přírodě.
-        </p>
-    </div>
-    <div class="about-image">
-        <img src="grandpa.jpg" alt="Dědeček včelař" class="about-img">
+    <h2>O nás</h2>
+    <div class="about-content">
+        <div class="about-text">
+            <p>Jmenuji se Jan Novák a včelařství je mou vášní. Naše rodinné včelařství se zaměřuje na kvalitní med, vosk a propolis.</p>
+            <p>Dbáme na tradiční postupy a péči o včely, aby každý produkt měl nejvyšší kvalitu.</p>
+        </div>
+        <div class="about-image">
+            <img src="grandpa.jpg" alt="Dědeček včelař" class="about-img">
+        </div>
     </div>
 </div>
 
-                </p>
-            </div>
-            <div class="about-image">
-    <img src="grandpa.jpg" alt="Dědeček včelař" class="about-img">
-            </div>
-        </div>
     </section>
 
     <!-- Produkty -->
