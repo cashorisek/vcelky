@@ -218,11 +218,12 @@
         }
 
         /* O nás */
-        #about {
-            background: var(--light-bg);
-        }
+        /* O nás */
+#about {
+    background: var(--light-bg);
+}
 
-     .about-content {
+.about-content {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -240,19 +241,36 @@
 }
 
 .about-image {
-    flex: 1 1 35%;
+    flex: 0 0 300px; /* pevná šířka obrázku */
     display: flex;
     justify-content: center;
 }
 
 .about-img {
     width: 100%;
-    max-width: 300px;   /* pevná maximální šířka */
-    height: auto;       /* zachová proporce */
-    object-fit: cover;  /* obrázek se přizpůsobí rámečku */
+    height: auto;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    object-fit: cover;
 }
+
+/* Responzivita */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-image {
+        flex: 0 0 auto;
+    }
+
+    .about-text {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+}
+
 
 }
 
@@ -531,7 +549,6 @@
             </div>
             <div class="about-image">
     <img src="grandpa.jpg" alt="Dědeček včelař" class="about-img">
-                style="width:100%; max-width:300px; height:auto; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.2);">
             </div>
         </div>
     </section>
