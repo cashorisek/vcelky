@@ -227,23 +227,36 @@
     display: flex;
     gap: 30px;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
+    max-width: 900px; /* omezení celého bloku */
+    margin: 0 auto;
 }
 
 .about-text {
-    width: 65%; /* pevná procenta místo flex-basis */
+    flex: 1;          /* text zabere dostupný prostor vedle obrázku */
+    min-width: 250px; /* nikdy nebude příliš úzký */
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .about-image {
-    width: 300px; /* pevná šířka obrázku */
-    flex-shrink: 0; /* zabrání zmenšení obrázku */
+    flex: 0 0 300px;  /* obrázek má pevnou šířku */
     display: flex;
     justify-content: center;
 }
 
+.about-img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    object-fit: cover;
+}
+
+/* Responzivita */
 @media (max-width: 768px) {
     .about-content {
-        flex-direction: column; /* jen na mobilu se obrázek přesune pod text */
+        flex-direction: column; /* na mobilu obrázek pod textem */
         align-items: center;
         text-align: center;
     }
@@ -252,9 +265,6 @@
         width: 100%;
     }
 }
-
-    }
-
 
 
 }
